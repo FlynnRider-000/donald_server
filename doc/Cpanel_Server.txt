@@ -1,0 +1,22 @@
+1. Open the terminal in cpanel.
+- We use screen to run a command/shell even the user is logged out -
+- Genereal screen commands:
+- screen -ls : view current screen sessions - 
+- screen -R <number> : open specified screen -
+- CTRL + A + D  - Leave screen running in background -
+- CTRL + D - Close screen session -
+
+2. View the running screen sessions: screen -ls (Only necessary to get an overview about the current sessions if the numbers of the sessions are changing, e.g. after reboot)
+
+3. Go into first screen session: screen -R 24825
+4. Press CTRL + C to abbort current process.
+7. Press the upwards arroy on your keyboard or type and press enter
+/home2/dsenterprise/node-v12.16.3-linux-x64/bin/node ~/public_html/besaitung_full/besaitung_full/server/app.js
+8. Press CTRL + A + D to leave screen.
+
+5. Go into second session: screen -R 21092
+6. Press CTRL + C to abbort current process.
+7. Press the upwards arroy on your keyboard or type "serve -s front" and press enter.
+8. Press CTRL + A + D to leave screen.
+
+9. Leave the terminal.
