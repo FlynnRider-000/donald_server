@@ -82,7 +82,7 @@ router.post('/sendMail', async function(req,res){
             subject:data.subject,
             text:data.text
         };
-        /*mailTrans.sendMail(mailData,function(error,info){
+        mailTrans.sendMail(mailData,function(error,info){
             if(error){
                 res.send("Failed");
                 console.log(error);
@@ -91,7 +91,7 @@ router.post('/sendMail', async function(req,res){
                 res.send("okay");
             }
         });
-        */
+        
        res.send("okay");
     }
     else
@@ -143,7 +143,14 @@ router.post('/getRequests', function(req, res){
         })
     }
 });
-
+router.post('/deleteServiceRequest', async function(req,res) {
+    await ServiceRequestSchema.destroy({
+        where: {
+          id: req.body.serviceId
+        },
+    });
+    res.send("success");
+});
 router.post('/addRequest', async function(req, res){
     
     var data = JSON.parse(req.body.data);
@@ -228,7 +235,7 @@ router.post('/addRequest', async function(req, res){
     
     console.log(mailData);
     try {
-        //await mailTrans.sendMail(mailData);
+        await mailTrans.sendMail(mailData);
     }
     catch(err) {
         console.log(err);

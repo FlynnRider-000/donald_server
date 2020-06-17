@@ -9,7 +9,7 @@ const CustomerSchema = sequelize.define('Customer', {
     lastName: Sequelize.STRING,
     firstName: Sequelize.STRING,
     street: Sequelize.STRING,
-    number: Sequelize.INTEGER,
+    number: Sequelize.STRING,
     ZIPcode: Sequelize.INTEGER,
     city: Sequelize.STRING,
     sportsClub: Sequelize.STRING,
