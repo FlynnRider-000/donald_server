@@ -144,6 +144,23 @@ router.post('/getRequests', function(req, res){
     }
 });
 router.post('/deleteServiceRequest', async function(req,res) {
+    
+    service = await ServiceRequestSchema.findOne({
+        where:{
+            id: req.body.serviceId
+        },
+        attributes:['racketId','stringId']
+    });
+    await RacketSchema.destroy({
+        where: {
+          id: service.racketId
+        },
+    });
+    await StringSchema.destroy({
+        where: {
+          id: service.stringId
+        },
+    });
     await ServiceRequestSchema.destroy({
         where: {
           id: req.body.serviceId
