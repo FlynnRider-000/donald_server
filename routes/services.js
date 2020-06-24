@@ -162,6 +162,7 @@ router.post('/addRequest', async function(req, res){
     if(data.String){
         await StringSchema.create(data.String);
         stringId = await StringSchema.findOne({where:data.String,attributes: ['id']});
+        console.log(stringId);
     }
     if(data.Racket){
         await RacketSchema.create(data.Racket);
@@ -189,12 +190,18 @@ router.post('/addRequest', async function(req, res){
             toEmailList += ", ";
     }
 
-    var temp = await UserSchema.findOne({
-        where: {
-            id: data.realdata.agentId
-        },
-        attributes: ["firstName","lastName","id"]
-    });
+    var tmep;
+    if(data.realdata.agentId !== -1){
+        temp = await UserSchema.findOne({
+            where: {
+                id: data.realdata.agentId
+            },
+            attributes: ["firstName","lastName","id"]
+        });
+    }
+    else{
+        temp = {firstName:'Gast',lastName:''};
+    }
 
     var temp1 = await CustomerSchema.findOne({
         where: {
@@ -243,7 +250,7 @@ router.post('/addRequest', async function(req, res){
 
     ServiceRequestSchema.create(data.realdata).then(requests => {
         res.send("success");
-    })
+    });
 });
 router.post('/updateRequest', async function(req, res){
     
@@ -528,4 +535,17 @@ router.post('/deleteString', async function(req,res) {
     res.send("success");
 });
 
+router.post('/getDropdownList', async function(req,res) {
+    RacketSchema.findAll({
+        order: ["Brand"],
+        attributes: ["Brand","Name"]
+    }).then(rackets => {
+        StringSchema.findAll({
+            order: ["Brand"],
+            attributes: ["Brand","Name"]
+        }).then(strings => {
+            res.send({rackets, strings});
+        })
+    });
+});
 module.exports = router;
